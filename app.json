@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "Marker Recorder MVP",
+    "slug": "marker-recorder-mvp",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "plugins": [
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "Aplikácia potrebuje prístup k mikrofónu, aby mohla vytvárať nahrávky s markermi.",
+          "enableBackgroundPlayback": false,
+          "enableBackgroundRecording": false
+        }
+      ]
+    ],
+    "android": {
+      "package": "com.example.markerrecordermvp"
+    }
+  }
+}
