@@ -510,7 +510,12 @@ async function playSelectedMarkerSegment() {
 async function playFromStart() {
   const recording = await getSelectedRecordingOrToast();
   if (!recording) return;
+
+  const firstMarker = recording.markers[0] || null;
+
   stopPlaybackMonitor();
+  state.playbackStopAtSec = firstMarker ? firstMarker.timeMs / 1000 : null;
+  els.segmentStopLabel.textContent = firstMarker ? formatTimeMs(firstMarker.timeMs) : 'Koniec nahrávky';
   els.audioPlayer.currentTime = 0;
   startPlaybackMonitor();
   await els.audioPlayer.play();
