@@ -1,61 +1,65 @@
-# Marker Recorder MVP+
+# Marker Recorder – čistá JS webapka
 
-Jednoduché Expo/React Native MVP pre Android:
-- nahrávanie zvuku,
+Statická webaplikácia bez backendu:
+- nahrávanie zvuku cez mikrofón,
 - pridávanie markerov počas nahrávania,
-- prehrávanie od zvoleného markeru,
-- automatické zastavenie na ďalšom markeri,
-- tlačidlá na skok na predchádzajúci a ďalší marker,
-- knižnica uložených nahrávok,
-- výber aktívnej nahrávky,
-- premenovanie a mazanie nahrávok.
+- lokálne uloženie nahrávok a markerov do IndexedDB,
+- prehrávanie po markerových segmentoch,
+- prechod na predchádzajúci / ďalší marker,
+- premenovanie a mazanie nahrávok aj markerov.
 
-## Čo pribudlo
+## Dôležité
 
-### Knižnica nahrávok
-- každá dokončená nahrávka sa uloží do zoznamu,
-- ku každej nahrávke sa ukladajú markery, dĺžka a čas vytvorenia,
-- zoznam sa drží trvalo cez AsyncStorage,
-- vieš prepnúť aktívnu nahrávku,
-- aktívnu nahrávku vieš premenovať alebo zmazať.
+Mikrofón v prehliadači funguje iba cez:
+- `https://...`
+- alebo lokálne cez `http://localhost`
 
-### Prehrávanie
-- markery sú naviazané na konkrétnu nahrávku,
-- po výbere nahrávky sa načíta správny audio súbor aj jej markery,
-- prehrávanie sa zastaví na nasledujúcom markeri.
+To znamená, že na mobile je najpraktickejšie testovať appku cez **GitHub Pages** alebo iný HTTPS hosting.
 
-## Inštalácia
+## Súbory
 
-```bash
-npm install
-npx expo start
-```
+- `index.html` – rozhranie
+- `styles.css` – štýly
+- `app.js` – logika aplikácie
 
-Pre Android build:
+## Lokálne spustenie
+
+Najjednoduchšie:
 
 ```bash
-npx expo run:android
+python -m http.server 8000
 ```
 
-## Závislosti navyše
+Potom otvor:
 
-Projekt po novom používa aj:
-
-```bash
-npx expo install @react-native-async-storage/async-storage expo-file-system
+```text
+http://localhost:8000
 ```
 
-## Poznámky
+## GitHub Pages
 
-- metadata nahrávok sa ukladajú do AsyncStorage,
-- pri mazaní sa appka pokúsi zmazať aj audio súbor z lokálneho disku,
-- ak sa zmazanie súboru nepodarí, nahrávka sa aj tak odstráni zo zoznamu a appka na to upozorní.
+1. Vytvor nový Git repozitár.
+2. Nahraj tieto súbory do koreňa repo.
+3. Pushni ich na GitHub.
+4. V GitHub repozitári otvor:
+   - **Settings → Pages**
+5. Ako source vyber:
+   - **Deploy from a branch**
+   - branch napr. `main`
+   - folder `/ (root)`
+6. Po deployi otvor pridelenú URL cez `https://...`
 
-## Ďalšie vhodné rozšírenia
+## Poznámky k ukladaniu
 
-1. editácia názvov markerov,
-2. filtrovanie a vyhľadávanie v knižnici,
-3. export markerov do JSON/CSV,
-4. import existujúcich audio súborov,
-5. waveform a jemnejší scrubber,
-6. prehrávanie na lock screene / headset ovládanie.
+- Nahrávky sa ukladajú do **IndexedDB v konkrétnom prehliadači a zariadení**.
+- Ak otestuješ appku v Chrome na mobile, dáta budú len tam.
+- Pri vymazaní dát prehliadača môžeš o nahrávky prísť.
+
+## Budúci smer
+
+Táto verzia je dobrý základ na ďalšie rozšírenie:
+- PWA manifest a service worker,
+- export/import nahrávok,
+- waveform,
+- lepšia správa knižnice,
+- synchronizácia na server.

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marker Recorder</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>Marker Recorder</h1>
+      <p class="subtitle">Nahrávanie s markermi a prehrávanie po segmentoch</p>
+    </div>
+    <div class="header-actions">
+      <button id="refreshBtn" class="secondary">Obnoviť zoznam</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <h2>Nová nahrávka</h2>
+      <div class="field-row">
+        <label for="newRecordingTitle">Názov</label>
+        <input id="newRecordingTitle" type="text" placeholder="Napr. Prednáška 1" />
+      </div>
+
+      <div class="record-controls">
+        <button id="startRecordingBtn">Spustiť nahrávanie</button>
+        <button id="stopRecordingBtn" disabled>Zastaviť</button>
+        <button id="addMarkerBtn" disabled>Pridať marker</button>
+      </div>
+
+      <div class="field-row compact">
+        <label for="markerNameInput">Názov markeru</label>
+        <input id="markerNameInput" type="text" placeholder="Voliteľné" />
+      </div>
+
+      <div class="status-grid">
+        <div>
+          <span class="label">Stav</span>
+          <strong id="recordingState">Pripravené</strong>
+        </div>
+        <div>
+          <span class="label">Čas</span>
+          <strong id="recordingElapsed">00:00.0</strong>
+        </div>
+        <div>
+          <span class="label">Markery</span>
+          <strong id="tempMarkerCount">0</strong>
+        </div>
+      </div>
+
+      <div>
+        <h3>Markery aktuálneho záznamu</h3>
+        <ul id="tempMarkersList" class="list"></ul>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Knižnica nahrávok</h2>
+        <span id="recordingsCount" class="badge">0</span>
+      </div>
+      <div id="recordingsList" class="list cards"></div>
+    </section>
+
+    <section class="panel wide">
+      <div class="panel-header">
+        <h2>Vybraná nahrávka</h2>
+        <span id="selectedRecordingBadge" class="badge muted">Žiadna</span>
+      </div>
+
+      <div id="emptySelection" class="empty-state">
+        Vyber nahrávku z knižnice.
+      </div>
+
+      <div id="selectedRecordingPanel" class="hidden">
+        <div class="field-row">
+          <label for="selectedRecordingTitle">Názov</label>
+          <input id="selectedRecordingTitle" type="text" />
+          <button id="renameRecordingBtn" class="secondary">Premenovať</button>
+          <button id="deleteRecordingBtn" class="danger">Zmazať</button>
+        </div>
+
+        <audio id="audioPlayer" controls preload="metadata"></audio>
+
+        <div class="playback-controls">
+          <button id="playSelectedMarkerBtn">Prehrať marker</button>
+          <button id="playFromStartBtn" class="secondary">Od začiatku</button>
+          <button id="prevMarkerBtn" class="secondary">Predchádzajúci marker</button>
+          <button id="nextMarkerBtn" class="secondary">Ďalší marker</button>
+          <button id="stopPlaybackBtn" class="secondary">Stop</button>
+        </div>
+
+        <div class="status-grid">
+          <div>
+            <span class="label">Aktuálna pozícia</span>
+            <strong id="playbackPosition">00:00.0</strong>
+          </div>
+          <div>
+            <span class="label">Vybraný marker</span>
+            <strong id="selectedMarkerLabel">Žiadny</strong>
+          </div>
+          <div>
+            <span class="label">Auto-stop</span>
+            <strong id="segmentStopLabel">Vypnuté</strong>
+          </div>
+        </div>
+
+        <div class="field-row compact">
+          <label for="editMarkerNameInput">Premenovať marker</label>
+          <input id="editMarkerNameInput" type="text" placeholder="Nový názov markeru" />
+          <button id="renameMarkerBtn" class="secondary">Uložiť</button>
+          <button id="deleteMarkerBtn" class="danger">Zmazať marker</button>
+        </div>
+
+        <div>
+          <h3>Markery nahrávky</h3>
+          <div id="markersList" class="list cards"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <template id="recordingCardTemplate">
+    <article class="card recording-card">
+      <div class="card-main">
+        <h3 class="recording-title"></h3>
+        <p class="muted recording-meta"></p>
+      </div>
+      <div class="card-actions">
+        <button class="open-recording-btn">Otvoriť</button>
+      </div>
+    </article>
+  </template>
+
+  <template id="markerCardTemplate">
+    <article class="card marker-card">
+      <div class="card-main">
+        <h4 class="marker-title"></h4>
+        <p class="muted marker-meta"></p>
+      </div>
+      <div class="card-actions vertical">
+        <button class="select-marker-btn">Vybrať</button>
+        <button class="play-marker-btn secondary">Prehrať</button>
+      </div>
+    </article>
+  </template>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

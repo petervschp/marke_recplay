@@ -1,0 +1,233 @@
+:root {
+  --bg: #0f172a;
+  --panel: #111827;
+  --panel-2: #1f2937;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --accent: #22c55e;
+  --danger: #ef4444;
+  --border: #374151;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+  color: var(--text);
+}
+button, input {
+  font: inherit;
+}
+button {
+  border: 1px solid transparent;
+  background: var(--accent);
+  color: #052e16;
+  font-weight: 700;
+  border-radius: 14px;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+}
+button:hover:enabled {
+  filter: brightness(1.05);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+button.secondary {
+  background: #111827;
+  color: var(--text);
+  border-color: var(--border);
+}
+button.danger {
+  background: var(--danger);
+  color: white;
+}
+input {
+  width: 100%;
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--border);
+  background: #0b1220;
+  color: var(--text);
+}
+label {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 1.25rem 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.app-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+.subtitle {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+.layout {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.panel {
+  background: rgba(17, 24, 39, 0.92);
+  border: 1px solid rgba(55, 65, 81, 0.8);
+  border-radius: 24px;
+  padding: 1rem;
+  box-shadow: var(--shadow);
+}
+.panel.wide {
+  grid-column: 1 / -1;
+}
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.record-controls,
+.playback-controls,
+.field-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin: 0.9rem 0;
+  flex-wrap: wrap;
+}
+.field-row.compact {
+  align-items: flex-end;
+}
+.field-row > label {
+  min-width: 120px;
+}
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+.status-grid > div,
+.card {
+  background: rgba(31, 41, 55, 0.7);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 0.9rem;
+}
+.label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 50px;
+}
+.cards {
+  max-height: 420px;
+  overflow: auto;
+}
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+.card-main h3,
+.card-main h4 {
+  margin: 0 0 0.3rem;
+}
+.card-main p {
+  margin: 0;
+}
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.card-actions.vertical {
+  flex-direction: column;
+}
+.muted {
+  color: var(--muted);
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: #14532d;
+  color: #dcfce7;
+  font-weight: 700;
+}
+.badge.muted {
+  background: #1f2937;
+  color: var(--muted);
+}
+.hidden {
+  display: none !important;
+}
+.empty-state {
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--border);
+  border-radius: 18px;
+  color: var(--muted);
+}
+.recording-card.active,
+.marker-card.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.5);
+}
+.toast {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.85rem 1rem;
+  border-radius: 999px;
+  background: rgba(2, 6, 23, 0.95);
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  z-index: 1000;
+}
+@media (max-width: 980px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .card,
+  .field-row,
+  .record-controls,
+  .playback-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .field-row > label {
+    min-width: unset;
+  }
+}
